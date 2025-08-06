@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import type {PokemonInfo} from "~/models/PokemonInfo";
+import type {Pokemon} from "~/models/Pokemon";
 
 interface Props {
-  pokemon: PokemonInfo
+  pokemon: Pokemon
 }
 
 defineProps<Props>();

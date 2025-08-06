@@ -20,10 +20,9 @@
 
 <script setup lang="ts">
 import PokemonCard from '~/components/PokemonCard.vue';
-import type {BasicPokemonInfo, PokemonInfo, PokemonListInfo} from '~/models/PokemonInfo';
+import { fetchPokemonList, fetchPokemonDetails } from '@/services/pokemonService'
 
 const limit = 10;
-const offset = computed(() => (currentPage.value - 1) * limit);
 const route = useRoute();
 const router = useRouter();
 const pokemons = computed<PokemonInfo[]>(() => data.value?.pokemons || []);
@@ -33,24 +32,13 @@ const hasNext = computed(() => data.value?.hasNext || false);
 const { data, pending, error } = await useAsyncData(
     () => `pokemons-page-${currentPage.value}`,
     async () => {
-      const list: PokemonListInfo = await $fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset.value}&limit=${limit}`)
-
-      const detailed = await Promise.all(
-          list.results.map(async (pokemon: BasicPokemonInfo) => {
-            const data: PokemonInfo = await $fetch(pokemon.url)
-            return {
-              id: data.id,
-              name: data.name,
-              height: data.height,
-              weight: data.weight,
-              sprites: data.sprites,
-            }
-          })
+      const list = await fetchPokemonList(currentPage.value, limit)
+      const details = await Promise.all(
+          list.results.map(p => fetchPokemonDetails(p.url))
       )
-
       return {
-        pokemons: detailed,
-        hasNext: list.next
+        pokemons: details,
+        hasNext: list.next !== null
       }
     }
 )

@@ -1,4 +1,4 @@
-export interface PokemonInfo {
+export interface Pokemon {
     id: number;
     name: string;
     height: number;
@@ -6,14 +6,16 @@ export interface PokemonInfo {
     sprites: Images;
 }
 
-export interface BasicPokemonInfo {
+export interface RawPokemon {
     name: string;
     url: string;
 }
 
 export interface PokemonListInfo {
-    results: [];
-    next: boolean;
+    count: number
+    next: string | null
+    previous: string | null
+    results: RawPokemon[];
 }
 
 export interface Images {
