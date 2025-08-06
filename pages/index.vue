@@ -1,51 +1,45 @@
 <template>
-  <div class="max-w-3xl mx-auto p-4">
-    <h1 class="text-3xl font-bold mb-6 text-center">Listado de Pokémon</h1>
+  <h1 class="text-3xl font-bold text-center my-8">Listado de Pokémon</h1>
 
-    <div v-if="pending" class="text-center">Cargando...</div>
-    <div v-else-if="error" class="text-center text-red-500">Error al cargar los datos de los Pokémon</div>
+  <div v-if="pending" class="text-center text-gray-600">Cargando...</div>
+  <div v-if="error" class="text-red-500 text-center">Error al cargar los datos</div>
 
-    <ul v-if="pokemons.length" class="space-y-6">
-      <li
-          v-for="pokemon in pokemons"
-          :key="pokemon.id"
-          class="flex gap-6 bg-white shadow-md rounded-lg p-4"
-      >
-        <div class="w-32 h-32 flex-shrink-0 flex items-center justify-center">
-          <img
-              :src="pokemon.sprites.other['official-artwork'].front_default"
-              :alt="pokemon.name"
-              class="w-full h-full object-contain"
-          />
-        </div>
-
-        <div class="flex flex-col justify-center">
-          <h3 class="text-xl font-semibold capitalize mb-2">{{ pokemon.name }}</h3>
-          <p><strong>ID:</strong> {{ pokemon.id }}</p>
-          <p><strong>Altura:</strong> {{ pokemon.height }}</p>
-          <p><strong>Peso:</strong> {{ pokemon.weight }}</p>
-        </div>
-      </li>
-    </ul>
+  <div class="flex flex-col items-center gap-6">
+    <div
+        v-for="pokemon in pokemons"
+        :key="pokemon.id"
+        class="flex items-center max-w-2xl w-full bg-white border border-gray-300 rounded-xl shadow-md overflow-hidden"
+    >
+      <div class="w-40 h-40 flex items-center justify-center bg-gray-100">
+        <img
+            :src="pokemon.sprites.front_default"
+            :alt="pokemon.name"
+            class="w-24 h-24 object-contain"
+        />
+      </div>
+      <div class="p-4 flex-1">
+        <h2 class="text-xl font-bold capitalize mb-2">{{ pokemon.name }}</h2>
+        <p><span class="font-semibold">ID:</span> {{ pokemon.id }}</p>
+        <p><span class="font-semibold">Altura:</span> {{ pokemon.height }}</p>
+        <p><span class="font-semibold">Peso:</span> {{ pokemon.weight }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const limit = ref(10)
+const pokemons = ref([])
 
-const limit = ref(20);
-const pokemons = ref([]);
-
-const {data: list, pending, error} = await useFetch(() => {
-  return `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${limit.value}`;
-});
+const { data: list, pending, error } = await useFetch(() => {
+  return `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${limit.value}`
+})
 
 if (list.value) {
   pokemons.value = await Promise.all(
-      list.value.results.map((pokemon: { name: string, url: string }) => {
-        return $fetch(pokemon.url);
+      list.value.results.map(async (pokemon: { name: string; url: string }) => {
+        return await $fetch(pokemon.url)
       })
-  );
+  )
 }
-
-
 </script>
