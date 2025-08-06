@@ -21,11 +21,12 @@
 <script setup lang="ts">
 import PokemonCard from '~/components/PokemonCard.vue';
 import { fetchPokemonList, fetchPokemonDetails } from '@/services/pokemonService'
+import type {Pokemon} from "~/models/Pokemon";
 
 const limit = 10;
 const route = useRoute();
 const router = useRouter();
-const pokemons = computed<PokemonInfo[]>(() => data.value?.pokemons || []);
+const pokemons = computed<Pokemon[]>(() => data.value?.pokemons || []);
 const currentPage = computed(() => Number(route.params.page || 1));
 const hasNext = computed(() => data.value?.hasNext || false);
 
