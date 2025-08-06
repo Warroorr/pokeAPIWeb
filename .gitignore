@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+
+# Build output
+.nuxt/
+.output/
+dist/
+
+# Optional build cache
+.cache/
+
+# Environment variables
+.env
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS
+.DS_Store
+
+# Nuxt generate output (if using static site generation)
+public/
