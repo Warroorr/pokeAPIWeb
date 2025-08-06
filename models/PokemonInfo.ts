@@ -3,10 +3,19 @@ export interface PokemonInfo {
     name: string;
     height: number;
     weight: number;
-    image: string;
+    sprites: Images;
 }
 
 export interface BasicPokemonInfo {
     name: string;
     url: string;
+}
+
+export interface PokemonListInfo {
+    results: [];
+    next: boolean;
+}
+
+export interface Images {
+    front_default: string;
 }
