@@ -1,0 +1,24 @@
+@import '@/assets/css/card.css';
+@import "@/assets/css/paginator.css";
+@import "@/assets/css/header.css";
+@import "@/assets/css/footer.css";
+@import "@/assets/css/layout.css";
+
+.page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.loading-message,
+.error-message {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.pokemon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}

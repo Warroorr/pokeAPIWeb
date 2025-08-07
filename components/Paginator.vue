@@ -1,9 +1,9 @@
 <template>
-  <nav class="flex justify-center items-center gap-2 mt-8 flex-wrap">
+  <nav class="paginator">
     <button
         @click="changePage(currentPage - 1)"
         :disabled="currentPage === 1"
-        class="px-3 py-1 border rounded disabled:opacity-50 hover:bg-gray-100"
+        :class="['paginator-button', { disabled: currentPage === 1 }]"
     >
       Anterior
     </button>
@@ -13,8 +13,8 @@
         :key="page"
         @click="changePage(page)"
         :class="[
-        'px-3 py-1 border rounded',
-        page === currentPage ? 'bg-gray-300 font-bold' : 'hover:bg-gray-100'
+        'paginator-button',
+        { active: page === currentPage }
       ]"
     >
       {{ page }}
@@ -23,7 +23,7 @@
     <button
         @click="changePage(currentPage + 1)"
         :disabled="!hasNext"
-        class="px-3 py-1 border rounded disabled:opacity-50 hover:bg-gray-100"
+        :class="['paginator-button', { disabled: !hasNext }]"
     >
       Siguiente
     </button>
@@ -31,12 +31,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
+import '@/assets/css/paginator.css';
 
-const props = defineProps<{
-  currentPage: number
+interface Props {
+  currentPage: number,
   hasNext: boolean
-}>()
+}
+
+const props = defineProps<Props>()
 
 const emit = defineEmits<{
   (e: 'pageChange', page: number): void
@@ -44,19 +47,19 @@ const emit = defineEmits<{
 
 function changePage(page: number) {
   if (page !== props.currentPage && page > 0) {
-    emit('pageChange', page)
+    emit('pageChange', page);
   }
 }
 
 const pagesToShow = computed(() => {
-  const pages = []
-  const start = Math.max(1, props.currentPage - 2)
-  const end = props.currentPage + 2
+  const pages = [];
+  const start = Math.max(1, props.currentPage - 2);
+  const end = props.currentPage + 2;
 
   for (let i = start; i <= end; i++) {
-    pages.push(i)
+    pages.push(i);
   }
 
-  return pages
+  return pages;
 })
 </script>

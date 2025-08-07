@@ -1,10 +1,4 @@
 export default defineNuxtConfig({
     ssr: true,
-    css: ['@/assets/css/tailwind.css'],
-    postcss: {
-        plugins: {
-            tailwindcss: {},
-            autoprefixer: {},
-        },
-    },
+    css: ['@/assets/css/main.css']
 })

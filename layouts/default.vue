@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="layout">
     <Header />
-    <main class="flex-1 container mx-auto px-4 py-6">
+    <main class="main-content">
       <slot />
     </main>
     <Footer />
@@ -9,6 +9,7 @@
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+import "@/assets/css/layout.css";
 </script>

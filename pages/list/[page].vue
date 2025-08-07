@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <div v-if="pending">Cargando...</div>
-    <div v-if="error">Error al cargar los datos</div>
+  <div class="page-container">
+    <div v-if="pending" class="loading-message">Cargando...</div>
+    <div v-if="error" class="error-message">Error al cargar los datos</div>
 
-    <div v-if="pokemons.length" class="flex flex-col gap-4">
+    <div v-if="pokemons.length" class="pokemon-list">
       <PokemonCard
           v-for="pokemon in pokemons"
           :key="pokemon.id"
           :pokemon="pokemon"
       />
     </div>
+
     <Paginator
         :currentPage="currentPage"
         :hasNext="hasNext"
@@ -22,6 +23,7 @@
 import PokemonCard from '~/components/PokemonCard.vue';
 import { fetchPokemonList, fetchPokemonDetails } from '@/services/pokemonService'
 import type {Pokemon} from "~/models/Pokemon";
+import "@/assets/css/main.css";
 
 const limit = 10;
 const route = useRoute();

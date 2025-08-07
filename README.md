@@ -7,9 +7,9 @@ Una aplicación web desarrollada con **Vue 3 + Nuxt 3**, que consume la [PokéAP
 
 - SSR habilitado con Nuxt 3.
 - Consumo de datos desde la PokéAPI.
-- Header con diseño vistoso usando TailwindCSS.
 - Separación de lógica en servicios (`/services`).
 - Código tipado con TypeScript.
+- Clases css propias (`/assets/css`).
 
 ---
 
@@ -44,7 +44,6 @@ Visita: http://localhost:3000
 
 - 🚀 [Vue 3](https://vuejs.org/)
 - ⚡ [Nuxt 3](https://nuxt.com/)
-- 🎨 [TailwindCSS](https://tailwindcss.com/)
 - 📝 [TypeScript](https://www.typescriptlang.org/)
 - 🐉 [PokéAPI](https://pokeapi.co/)
 
@@ -52,7 +51,7 @@ Visita: http://localhost:3000
 
 ## 🧾 Inspiración de diseño
 
-La maquetación general está inspirada en la estructura de artículos y listado de sport.es (https://www.sport.es/es/autor/david-bernabeu), adaptada con un diseño responsive y simplificado utilizando TailwindCSS.
+La maquetación general está inspirada en la estructura de artículos y listado de sport.es (https://www.sport.es/es/autor/david-bernabeu), adaptada con un diseño responsive y simplificado utilizando estilos CSS propios.
 
 ---
 
@@ -62,10 +61,15 @@ La maquetación general está inspirada en la estructura de artículos y listado
 /
 ├─ assets/
 │ ├─ css/
-│ │ ├─ tailwind.css
+│ │ ├─ card.css
+│ │ ├─ footer.css
+│ │ ├─ header.css
+│ │ ├─ layout.css
+│ │ ├─ main.css
+│ │ └─ paginator.css
 ├─ components/
-│ ├─ Header.vue
 │ ├─ Footer.vue
+│ ├─ Header.vue
 │ ├─ Paginator.vue
 │ └─ PokemonCard.vue
 ├─ layouts/
@@ -73,10 +77,11 @@ La maquetación general está inspirada en la estructura de artículos y listado
 ├─ models/
 │ └─ Pokemon.ts
 ├─ pages/
+│ ├─ list/
+│ │ └─ [page].vue
 │ └─ index.vue
 ├─ services/
-│ ├─ fetchPokemonList.ts
-│ └─ fetchPokemonDetails.ts
+│ └─ pokemonService.ts
 ├─ app.vue
 ├─ nuxt.config.ts
 └─ README.md
